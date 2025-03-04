@@ -24,7 +24,7 @@ class SpiInterface extends PairInterface {
   Logic get mosi => port('MOSI');
 
   /// Main In Sub Out (MISO). Serial data from sub(s) to main.
-  Logic get miso => port('MISO');
+  LogicNet get miso => port('MISO') as LogicNet;
 
   /// Chip select (active low). Chip select signal from main to sub.
   List<Logic> get csb => List.generate(multiChipSelects, (i) => port('CSB$i'));
@@ -32,7 +32,7 @@ class SpiInterface extends PairInterface {
   /// Creates a new [SpiInterface].
   SpiInterface({this.dataLength = 1, this.multiChipSelects = 1})
       : super(
-            portsFromConsumer: [Port('MISO')],
+            portsFromConsumer: [LogicNet.port('MISO')],
             portsFromProvider: [Port('MOSI'), Port('SCLK')] +
                 List.generate(multiChipSelects, (i) => Port('CSB$i')));
 
